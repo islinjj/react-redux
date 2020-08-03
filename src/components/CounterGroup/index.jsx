@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Counter from '../Counter'
+import store from '../../store'
 
 class CounterGroup extends Component {
     constructor(props) {
@@ -19,19 +20,12 @@ class CounterGroup extends Component {
         }
     }
 
-    handleIncrease = () => {
-        this.setState((preState) => ({
-            totalValue: preState.totalValue + 1
-        }))
-    }
-
-    handleDecrease = () => {
-        this.setState((preState) => ({
-            totalValue: preState.totalValue - 1
-        }))
-    }
-
     render() {
+        store.subscribe(() => {
+            this.setState({
+                totalValue: store.getState()
+            })
+        });
         const initArray = [...Array(this.state.size).keys()];
         return <div>
             <div>
@@ -44,7 +38,7 @@ class CounterGroup extends Component {
                 <label>Group total:{this.state.totalValue}</label>
             </div>
             {
-            initArray.map(key => <Counter groupSize={this.state.size} onDecrease={this.handleDecrease} onIncrease={this.handleIncrease} key={key} />)
+            initArray.map(key => <Counter groupSize={this.state.size} key={key} store={store} />)
             }
         </div >
     }

@@ -1,11 +1,11 @@
 import { INCREASE, DECREASE } from "../actions";
 
-const changeNumber = (state = { value: 0 }, action) => {
+const changeNumber = (state = 0, action) => {
     switch (action.type) {
         case INCREASE:
-            return { value: state.value + 1 };
+            return  state + 1 ;
         case DECREASE:
-            return { value: state.value - 1 };
+            return  state - 1 ;
         default:
             return state;
     }
