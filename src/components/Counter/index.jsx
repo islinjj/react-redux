@@ -1,4 +1,5 @@
 import React from 'react';
+import store from '../../store'
 
 class Counter extends React.Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class Counter extends React.Component {
         this.setState((preState) => ({
             value: preState.value + 1
         }))
-        this.props.onIncrease();
+        store.dispatch({type:'INCREASE'});
+        // this.props.onIncrease();
     };
 
     onDecrease = () => {
