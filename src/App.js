@@ -13,6 +13,4 @@ function App() {
   );
 }
 
-store.subscribe(App);
-
 export default App;
