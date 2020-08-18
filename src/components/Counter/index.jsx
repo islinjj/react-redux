@@ -13,14 +13,16 @@ class Counter extends React.Component {
         this.setState((preState) => ({
             value: preState.value + 1
         }))
-        this.props.store.dispatch({type:'INCREASE'});
+        this.props.increase();
+        // this.props.store.dispatch({type:'INCREASE'});
     };
 
     onDecrease = () => {
         this.setState((preState) => ({
             value: preState.value - 1
         }))
-        this.props.store.dispatch({type:'DECREASE'});
+        this.props.decrease();
+        // this.props.store.dispatch({type:'DECREASE'});
     };
 
     static getDerivedStateFromProps = (props, state) => {

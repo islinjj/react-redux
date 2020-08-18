@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
-import Counter from '../Counter'
-import store from '../../store'
+import React, { Component } from 'react';
+import Counter from '../Counter';
+import { connect } from 'react-redux';
+import store from '../../store';
+import { increaseAction,decreaseAction } from '../../actions';
 
 class CounterGroup extends Component {
     constructor(props) {
@@ -21,11 +23,11 @@ class CounterGroup extends Component {
     }
 
     render() {
-        store.subscribe(() => {
-            this.setState({
-                totalValue: store.getState()
-            })
-        });
+        // store.subscribe(() => {
+        //     this.setState({
+        //         totalValue: store.getState()
+        //     })
+        // });
         const initArray = [...Array(this.state.size).keys()];
         return <div>
             <div>
@@ -35,12 +37,25 @@ class CounterGroup extends Component {
             </label>
         </div>
             <div>
-                <label>Group total:{this.state.totalValue}</label>
+                <label>Group total:{this.props.result}</label>
             </div>
             {
-            initArray.map(key => <Counter groupSize={this.state.size} key={key} store={store} />)
+                // store={store} 
+            initArray.map(key => <Counter groupSize={this.state.size} key={key} increase={this.props.increase} decrease={this.props.decrease}/>)
             }
         </div >
     }
 }
-export default CounterGroup;
+
+
+const mapStateToProps = state => {
+    return { result: state };
+}
+
+const mapDispatchToProps = ({
+    increase:increaseAction,
+    decrease:decreaseAction
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(CounterGroup)
+// export default CounterGroup;
